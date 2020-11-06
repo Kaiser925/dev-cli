@@ -57,14 +57,10 @@ func (c *create) createMongoUsr(param []string) error {
 	if len(param) < 3 {
 		return errors.New("create database need database name, user and password")
 	}
-	db, user, pwd := param[0], param[1], param[2]
+	config := common.DefaultMongoDBConfig()
+	config.DataBaseName, config.User, config.Password = param[0], param[1], param[2]
 
-	ip, err := common.GetLocalIP()
-	if err != nil {
-		return err
-	}
+	mongodb := resourses.NewMongoDB(config)
 
-	mongodb := resourses.NewMongoDB(ip)
-
-	return mongodb.Create(db, user, pwd)
+	return mongodb.Create()
 }
