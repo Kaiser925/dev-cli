@@ -45,35 +45,22 @@ func (c *create) create(res string, param []string) error {
 }
 
 func (c *create) createReplicaSet(param []string) error {
-	dataDir := "./data"
+	config := common.DefaultMongoReplicaSetConfig()
 	if len(param) == 1 {
-		dataDir = param[0]
+		config.DataDir = param[0]
 	}
-	ip, err := common.GetLocalIP()
-	if err != nil {
-		return err
-	}
-
-	mongors := resourses.NewMongoReplicaSet(dataDir, ip)
-	err = mongors.Create()
-	if err != nil {
-		return err
-	}
-	return nil
+	mongors := resourses.NewMongoReplicaSet(config)
+	return mongors.Create()
 }
 
 func (c *create) createMongoUsr(param []string) error {
 	if len(param) < 3 {
 		return errors.New("create database need database name, user and password")
 	}
-	db, user, pwd := param[0], param[1], param[2]
+	config := common.DefaultMongoDBConfig()
+	config.DataBaseName, config.User, config.Password = param[0], param[1], param[2]
 
-	ip, err := common.GetLocalIP()
-	if err != nil {
-		return err
-	}
+	mongodb := resourses.NewMongoDB(config)
 
-	mongodb := resourses.NewMongoDB(ip)
-
-	return mongodb.Create(db, user, pwd)
+	return mongodb.Create()
 }

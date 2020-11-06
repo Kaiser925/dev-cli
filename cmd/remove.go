@@ -9,14 +9,14 @@ import (
 )
 
 var RemoveCmd = &cobra.Command{
-	Use:   "remove <resource>",
-	Short: "Remove local resource",
+	Use:   "delete <resource>",
+	Short: "Delete local resource",
 	Args:  cobra.MinimumNArgs(1),
-	Long: `Remove local resource, such as local mongo replica set.
+	Long: `Delete local resource, such as local mongo replica set.
 
 # remove mongo replica set, and delete local data.
 # Note need root.
-devctl remove mongors
+devctl delete mongors
 	`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		remover := &remover{}
@@ -36,14 +36,10 @@ func (r *remover) remove(res string, param []string) error {
 }
 
 func (r *remover) removeMongoRS(param []string) error {
-	dataDir := "./data"
+	config := common.DefaultMongoReplicaSetConfig()
 	if len(param) == 1 {
-		dataDir = param[0]
+		config.DataDir = param[0]
 	}
-	ip, err := common.GetLocalIP()
-	if err != nil {
-		return err
-	}
-	mongors := resourses.NewMongoReplicaSet(dataDir, ip)
-	return mongors.Remove()
+	mongors := resourses.NewMongoReplicaSet(config)
+	return mongors.Delete()
 }
