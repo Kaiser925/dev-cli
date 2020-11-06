@@ -16,11 +16,11 @@ type MongoReplicaSet struct {
 	setupDir string
 }
 
-func NewMongoReplicaSet(dataDir string, host string) *MongoReplicaSet {
+func NewMongoReplicaSet(config *common.MongoReplicaSetConfig) *MongoReplicaSet {
 	return &MongoReplicaSet{
-		DataDir:  dataDir,
-		Host:     host,
-		setupDir: "mongors-setup",
+		DataDir:  config.DataDir,
+		Host:     config.Host,
+		setupDir: config.SetupDir,
 	}
 }
 
@@ -70,7 +70,7 @@ func (m *MongoReplicaSet) Create() error {
 	return nil
 }
 
-func (m *MongoReplicaSet) Remove() error {
+func (m *MongoReplicaSet) Delete() error {
 	log.Println("delete mongo replicaset and data")
 
 	cmd := exec.Command("docker-compose", "down")
