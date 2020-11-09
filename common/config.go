@@ -18,7 +18,7 @@ func DefaultMongoReplicaSetConfig() *MongoReplicaSetConfig {
 	return &MongoReplicaSetConfig{
 		Host:     host,
 		DataDir:  "/mnt/data/mongo",
-		SetupDir: "./.mongo-setup",
+		SetupDir: "./.devctl-setup",
 	}
 }
 
