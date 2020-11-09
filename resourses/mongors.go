@@ -16,7 +16,7 @@ type MongoReplicaSet struct {
 	setupDir string
 }
 
-func NewMongoReplicaSet(config *common.MongoReplicaSetConfig) *MongoReplicaSet {
+func NewMongoReplicaSet(config *common.ResourceConfig) *MongoReplicaSet {
 	return &MongoReplicaSet{
 		DataDir:  config.DataDir,
 		Host:     config.Host,

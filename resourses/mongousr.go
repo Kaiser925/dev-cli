@@ -12,10 +12,10 @@ import (
 )
 
 type MongoDB struct {
-	config *common.MongoDBConfig
+	config *common.ResourceConfig
 }
 
-func NewMongoDB(config *common.MongoDBConfig) *MongoDB {
+func NewMongoDB(config *common.ResourceConfig) *MongoDB {
 	return &MongoDB{
 		config,
 	}
@@ -37,12 +37,12 @@ func (m *MongoDB) Create() error {
 		return err
 	}
 
-	r := client.Database(m.config.DataBaseName).RunCommand(
+	r := client.Database(m.config.DatabaseName).RunCommand(
 		context.Background(),
 		bson.D{
 			{"createUser", m.config.User},
 			{"pwd", m.config.Password},
-			{"roles", []bson.M{{"role": "readWrite", "db": m.config.DataBaseName}}},
+			{"roles", []bson.M{{"role": "readWrite", "db": m.config.DatabaseName}}},
 		})
 
 	if r.Err() != nil {
@@ -55,7 +55,7 @@ func (m *MongoDB) Create() error {
 		m.config.Host,
 		m.config.Host,
 		m.config.Host,
-		m.config.DataBaseName)
+		m.config.DatabaseName)
 
 	log.Println(fmt.Sprintf("create done,use \"%s\" to connect", dbURI))
 	return nil

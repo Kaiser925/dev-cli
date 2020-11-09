@@ -1,32 +1,31 @@
 package common
 
-type MongoReplicaSetConfig struct {
-	Host     string `yaml:"Host"`
-	DataDir  string `yaml:"DataDir"`
-	SetupDir string `yaml:"SetupDir"`
+type ResourceConfig struct {
+	Kind         string `yaml:"kind"`
+	Host         string `yaml:"host"`
+	DataDir      string `yaml:"data-dir"`
+	SetupDir     string `yaml:"setup-dir"`
+	DatabaseName string `yaml:"database"`
+	User         string `yaml:"user"`
+	Password     string `yaml:"password"`
 }
 
-type MongoDBConfig struct {
-	Host         string `yaml:"Host"`
-	DataBaseName string `yaml:"DataBaseName"`
-	User         string `yaml:"User"`
-	Password     string `yaml:"Password"`
-}
-
-func DefaultMongoReplicaSetConfig() *MongoReplicaSetConfig {
+func DefaultMongoReplicaSetConfig() *ResourceConfig {
 	host, _ := GetLocalIP()
-	return &MongoReplicaSetConfig{
+	return &ResourceConfig{
+		Kind:     "MongoReplicaSet",
 		Host:     host,
 		DataDir:  "/mnt/data/mongo",
 		SetupDir: "./.devctl-setup",
 	}
 }
 
-func DefaultMongoDBConfig() *MongoDBConfig {
+func DefaultMongoDBConfig() *ResourceConfig {
 	host, _ := GetLocalIP()
-	return &MongoDBConfig{
+	return &ResourceConfig{
+		Kind:         "MongoDB",
 		Host:         host,
-		DataBaseName: "MongoDB",
+		DatabaseName: "MongoDB",
 		User:         "admin",
 		Password:     "admin",
 	}

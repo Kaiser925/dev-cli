@@ -58,7 +58,7 @@ func (c *create) createMongoUsr(param []string) error {
 		return errors.New("create database need database name, user and password")
 	}
 	config := common.DefaultMongoDBConfig()
-	config.DataBaseName, config.User, config.Password = param[0], param[1], param[2]
+	config.DatabaseName, config.User, config.Password = param[0], param[1], param[2]
 
 	mongodb := resourses.NewMongoDB(config)
 
