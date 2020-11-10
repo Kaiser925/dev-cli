@@ -54,3 +54,13 @@ func TestRenderTemplateToNewFile(t *testing.T) {
 	assert.Equal(t, err, nil)
 	assert.Equal(t, string(fileContent), "A is B")
 }
+
+func TestWriteNewFile(t *testing.T) {
+	fileName := "newFile"
+	defer os.Remove(fileName)
+	content := "test content"
+	l, err := WriteFile(fileName, content)
+
+	assert.Equal(t, err, nil)
+	assert.Equal(t, l, len(content))
+}
