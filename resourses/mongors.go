@@ -14,39 +14,20 @@ type MongoReplicaSet struct {
 	DataDir string
 
 	setupDir string
+	kind     string
 }
 
-func NewMongoReplicaSet(config *common.ResourceConfig) *MongoReplicaSet {
+func NewMongoReplicaSet(config *common.ResourceConfig) Resource {
 	return &MongoReplicaSet{
 		DataDir:  config.DataDir,
 		Host:     config.Host,
 		setupDir: config.SetupDir,
+		kind:     "MongoRS",
 	}
 }
 
-func (m *MongoReplicaSet) prepareFiles() error {
-	err := os.Mkdir(m.setupDir, os.ModePerm)
-
-	if err != nil && !os.IsExist(err) {
-		return err
-	}
-
-	_, err = common.WriteFile(fmt.Sprintf("%s/setup.sh", m.setupDir), common.SETUP_SHELL)
-	if err != nil {
-		return err
-	}
-	_, err = common.WriteFile(fmt.Sprintf("%s/Dockerfile", m.setupDir), common.SETUP_DOCKER)
-	if err != nil {
-		return err
-	}
-
-	configFile := fmt.Sprintf("%s/replicaSet.js", m.setupDir)
-	err = common.RenderTemplateFile(common.REPLICA_SET_CONFG, m, configFile)
-
-	composeFile := fmt.Sprintf("%s/docker-compose.yaml", m.setupDir)
-	err = common.RenderTemplateFile(common.MONGO_RS_DOCKER_COMPOSE, m, composeFile)
-
-	return nil
+func (m *MongoReplicaSet) Kind() string {
+	return m.kind
 }
 
 func (m *MongoReplicaSet) Create() error {
@@ -85,5 +66,30 @@ func (m *MongoReplicaSet) Delete() error {
 	}
 
 	log.Println("mongo replica set has been removed")
+	return nil
+}
+
+func (m *MongoReplicaSet) prepareFiles() error {
+	err := os.Mkdir(m.setupDir, os.ModePerm)
+
+	if err != nil && !os.IsExist(err) {
+		return err
+	}
+
+	_, err = common.WriteFile(fmt.Sprintf("%s/setup.sh", m.setupDir), common.SETUP_SHELL)
+	if err != nil {
+		return err
+	}
+	_, err = common.WriteFile(fmt.Sprintf("%s/Dockerfile", m.setupDir), common.SETUP_DOCKER)
+	if err != nil {
+		return err
+	}
+
+	configFile := fmt.Sprintf("%s/replicaSet.js", m.setupDir)
+	err = common.RenderTemplateFile(common.REPLICA_SET_CONFG, m, configFile)
+
+	composeFile := fmt.Sprintf("%s/docker-compose.yaml", m.setupDir)
+	err = common.RenderTemplateFile(common.MONGO_RS_DOCKER_COMPOSE, m, composeFile)
+
 	return nil
 }
