@@ -60,7 +60,7 @@ func (c *create) createMongoUsr(param []string) error {
 	config := common.DefaultMongoDBConfig()
 	config.DatabaseName, config.User, config.Password = param[0], param[1], param[2]
 
-	mongodb := resourses.NewMongoDB(config)
+	mongodb := resourses.NewMongoUser(config)
 
 	return mongodb.Create()
 }
