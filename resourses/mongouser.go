@@ -11,17 +11,23 @@ import (
 	"time"
 )
 
-type MongoDB struct {
+type MongoUser struct {
+	kind   string
 	config *common.ResourceConfig
 }
 
-func NewMongoDB(config *common.ResourceConfig) *MongoDB {
-	return &MongoDB{
-		config,
+func NewMongoUser(config *common.ResourceConfig) Resource {
+	return &MongoUser{
+		config: config,
+		kind:   "MongoUser",
 	}
 }
 
-func (m *MongoDB) Create() error {
+func (m *MongoUser) Kind() string {
+	return m.kind
+}
+
+func (m *MongoUser) Create() error {
 	uri := fmt.Sprintf("mongodb://%s:27010,%s:27011,%s:27012/?replicaSet=rs0",
 		m.config.Host, m.config.Host, m.config.Host)
 
@@ -61,6 +67,6 @@ func (m *MongoDB) Create() error {
 	return nil
 }
 
-func (m *MongoDB) Remove() error {
+func (m *MongoUser) Delete() error {
 	return nil
 }
