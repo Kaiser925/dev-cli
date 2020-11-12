@@ -3,6 +3,7 @@ package resourses
 import (
 	"fmt"
 	"github.com/Kaiser925/devctl/common"
+	"strings"
 )
 
 type ResourceNotFoundErr struct {
@@ -29,13 +30,13 @@ func NewResourceOperator() *ResourceOperator {
 // AddResources add a batch kinds of Resource to operator.
 func (r *ResourceOperator) AddResources(resources map[string]ResourceConstructor) {
 	for kind, constructor := range resources {
-		r.resources[kind] = constructor
+		r.resources[strings.ToLower(kind)] = constructor
 	}
 }
 
 // AddResource add single kind Resource to operator.
-func (r *ResourceOperator) AddResource(kind string, resource ResourceConstructor) {
-	r.resources[kind] = resource
+func (r *ResourceOperator) AddResource(kind string, constructor ResourceConstructor) {
+	r.resources[strings.ToLower(kind)] = constructor
 }
 
 // CreateResource creates new Resource.
@@ -58,7 +59,7 @@ func (r *ResourceOperator) DeleteResource(config *common.ResourceConfig) error {
 
 // constructResource constructs Resource corresponding to config.
 func (r *ResourceOperator) constructResource(config *common.ResourceConfig) (Resource, error) {
-	constructor, ok := r.resources[config.Kind]
+	constructor, ok := r.resources[strings.ToLower(config.Kind)]
 	if !ok {
 		return nil, &ResourceNotFoundErr{kind: config.Kind}
 	}
