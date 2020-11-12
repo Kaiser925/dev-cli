@@ -13,13 +13,21 @@ var (
 	mockConstructor = func(config *common.ResourceConfig) Resource { return mockResource }
 )
 
+func TestNewResourceOperator(t *testing.T) {
+	op := NewResourceOperator()
+	assert.Equal(t, len(op.resources), 2)
+}
+
 func TestResourceOperator_AddResources(t *testing.T) {
 	resources := map[string]ResourceConstructor{
 		"A": func(config *common.ResourceConfig) Resource { return nil },
 		"B": func(config *common.ResourceConfig) Resource { return nil },
 	}
 
-	op := NewResourceOperator()
+	op := &ResourceOperator{
+		resources: make(map[string]ResourceConstructor),
+	}
+
 	op.AddResources(resources)
 
 	assert.Equal(t, len(op.resources), len(resources))
@@ -28,7 +36,10 @@ func TestResourceOperator_AddResources(t *testing.T) {
 func TestResourceOperator_ConstructResource(t *testing.T) {
 	mockResource.On("Kind").Return(mockKind)
 
-	op := NewResourceOperator()
+	op := &ResourceOperator{
+		resources: make(map[string]ResourceConstructor),
+	}
+
 	op.AddResource(mockResource.Kind(), mockConstructor)
 
 	config := &common.ResourceConfig{Kind: mockKind}

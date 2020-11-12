@@ -24,6 +24,8 @@ func NewResourceOperator() *ResourceOperator {
 	op := &ResourceOperator{
 		resources: make(map[string]ResourceConstructor),
 	}
+	op.AddResource("MongoUser", NewMongoUser)
+	op.AddResource("MongoRS", NewMongoReplicaSet)
 	return op
 }
 
