@@ -1,0 +1,7 @@
+kind: test
+database: db
+user: usr
+password: pass
+host: 192.168.1.1 # when create mongo rs, host should be local host ip.
+data-dir: ./data
+setup-dir: ./setup
