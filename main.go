@@ -13,7 +13,7 @@ var rootCmd = &cobra.Command{
 
 func main() {
 	rootCmd.AddCommand(cmd.Create)
-	rootCmd.AddCommand(cmd.DeleteCmd)
+	rootCmd.AddCommand(cmd.Delete)
 	if err := rootCmd.Execute(); err != nil {
 		log.Fatal(err)
 	}
