@@ -11,11 +11,13 @@ var (
 	configfile string
 )
 
-func configValidators(_ *cobra.Command, args []string) error {
-	if len(args) < 1 && len(configfile) == 0 {
-		return errors.New("requires resources kind")
+func configValidator(filename string) cobra.PositionalArgs {
+	return func(cmd *cobra.Command, args []string) error {
+		if len(args) < 1 && len(filename) == 0 {
+			return errors.New("requires resources kind")
+		}
+		return nil
 	}
-	return nil
 }
 
 func configFromArgs(args []string) (*common.ResourceConfig, error) {

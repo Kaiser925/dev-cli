@@ -10,7 +10,7 @@ var Delete = &cobra.Command{
 	Use:   "delete <resource>",
 	Short: "Delete local resource",
 	Long:  "Delete local resource, such as local mongo replica set.",
-	Args:  configValidators,
+	Args:  configValidator(configfile),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var config *common.ResourceConfig
 		var err error

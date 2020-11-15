@@ -10,7 +10,7 @@ var Create = &cobra.Command{
 	Use:   "create <resource kind>",
 	Short: "create local resource",
 	Long:  "create local resource, such as local mongo replica set.",
-	Args:  configValidators,
+	Args:  configValidator(configfile),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var config *common.ResourceConfig
 		var err error
