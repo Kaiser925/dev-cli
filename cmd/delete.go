@@ -6,16 +6,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var deleteConfigFile string
+
 var Delete = &cobra.Command{
 	Use:   "delete <resource>",
 	Short: "Delete local resource",
 	Long:  "Delete local resource, such as local mongo replica set.",
-	Args:  configValidator(configfile),
+	Args:  configValidator(deleteConfigFile),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var config *common.ResourceConfig
 		var err error
-		if len(configfile) > 0 {
-			config, err = common.ReadConfigFromFile(configfile)
+		if len(deleteConfigFile) > 0 {
+			config, err = common.ReadConfigFromFile(deleteConfigFile)
 		} else {
 			config, err = configFromArgs(args)
 		}
@@ -29,6 +31,6 @@ var Delete = &cobra.Command{
 }
 
 func init() {
-	Delete.Flags().StringVarP(&configfile, "filename", "f", "",
+	Delete.Flags().StringVarP(&deleteConfigFile, "filename", "f", "",
 		"that contains the configuration to create")
 }
