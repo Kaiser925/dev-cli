@@ -37,11 +37,6 @@ func parseConfigFromArgs(args []string) (*common.ResourceConfig, error) {
 	switch len(args) {
 	case 1:
 		config.Kind = args[0]
-	case 4:
-		config.Kind = args[0]
-		config.DatabaseName = args[1]
-		config.User = args[2]
-		config.Password = args[3]
 	default:
 		return config, errors.New("parameters is not right")
 	}
