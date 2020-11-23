@@ -15,7 +15,7 @@ var (
 
 func TestNewResourceOperator(t *testing.T) {
 	op := NewResourceOperator()
-	assert.Equal(t, len(op.resources), 2)
+	assert.Equal(t, len(op.resources), 1)
 }
 
 func TestResourceOperator_AddResources(t *testing.T) {
