@@ -1,8 +1,8 @@
 package resourses
 
 import (
-	"github.com/Kaiser925/devctl/common"
-	"github.com/Kaiser925/devctl/resourses/mocks"
+	"github.com/Kaiser925/devctl/pkg/common"
+	"github.com/Kaiser925/devctl/pkg/resourses/mocks"
 	"github.com/magiconair/properties/assert"
 	"testing"
 )

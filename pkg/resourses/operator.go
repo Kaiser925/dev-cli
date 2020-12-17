@@ -2,7 +2,7 @@ package resourses
 
 import (
 	"fmt"
-	"github.com/Kaiser925/devctl/common"
+	"github.com/Kaiser925/devctl/pkg/common"
 	"strings"
 )
 

@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"errors"
-	"github.com/Kaiser925/devctl/common"
+	"github.com/Kaiser925/devctl/pkg/common"
 	"github.com/spf13/cobra"
 	"log"
 )

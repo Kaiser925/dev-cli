@@ -3,7 +3,7 @@ package resourses
 import (
 	"bytes"
 	"fmt"
-	"github.com/Kaiser925/devctl/common"
+	"github.com/Kaiser925/devctl/pkg/common"
 	"log"
 	"os"
 	"os/exec"
