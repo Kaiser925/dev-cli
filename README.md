@@ -30,16 +30,10 @@ Command "create" is used to create new resource.
 
 examples:
 
-1. Create a new mongo replica set.
+Create a new mongo replica set.
 
 ```bash
 devctl create mongors
-```
-
-2. Create a new mongo user for the database.
-
-```bash
-devctl create mongousr <db> <user> <password>
 ```
 
 #### delete
