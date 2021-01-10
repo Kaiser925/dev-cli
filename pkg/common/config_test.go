@@ -58,7 +58,7 @@ func TestDefaultMongoReplicaSetConfig(t *testing.T) {
 
 	assert.Equal(t, config.Kind, "MongoReplicaSet")
 	assert.Equal(t, config.DataDir, "/mnt/data/mongo")
-	assert.Equal(t, config.SetupDir, "./.devctl-setup")
+	assert.Equal(t, config.SetupDir, "./.dev-cli-setup")
 }
 
 func TestDefaultMongoDBConfig(t *testing.T) {

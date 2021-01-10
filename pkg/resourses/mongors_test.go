@@ -16,7 +16,7 @@
 package resourses
 
 import (
-	"github.com/Kaiser925/devctl/pkg/common"
+	"github.com/Kaiser925/dev-cli/pkg/common"
 	"github.com/magiconair/properties/assert"
 	"testing"
 )

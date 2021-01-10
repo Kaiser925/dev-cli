@@ -1,4 +1,4 @@
-name: devctl
+name: dev-cli
 
 on:
   push:

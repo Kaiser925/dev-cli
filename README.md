@@ -1,19 +1,19 @@
-# devctl
+# dev-cli
 
-[![devctl](https://github.com/Kaiser925/devctl/workflows/devctl/badge.svg)](https://github.com/Kaiser925/devctl/actions)
+[![dev-cli](https://github.com/Kaiser925/dev-cli/workflows/dev-cli/badge.svg)](https://github.com/Kaiser925/dev-cli/actions)
 
-devctl is a tool for building development environment.
+dev-cli is a commandline interface tool for building development environment.
 
 It encapsulates the commands of docker and docker-compose, enabling developers to quickly build a local development environment
 
 ## Usage
 
-> If you want to use devctl, you should install **docker** and **docker-compose** on your system. 
+> If you want to use dev-cli, you should install **docker** and **docker-compose** on your system. 
 
 ### install
 
 ```bash
-go get https://github.com/Kaiser925/devctl
+go get https://github.com/Kaiser925/dev-cli
 ```
 
 ### Commands
@@ -21,7 +21,7 @@ go get https://github.com/Kaiser925/devctl
 Show help messages
 
 ```bash
-devctl --help
+dev-cli --help
 ```
 
 #### create
@@ -33,7 +33,7 @@ examples:
 Create a new mongo replica set.
 
 ```bash
-devctl create mongors
+dev-cli create mongors
 ```
 
 #### delete

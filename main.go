@@ -16,7 +16,7 @@
 package main
 
 import (
-	"github.com/Kaiser925/devctl/cmd"
+	"github.com/Kaiser925/dev-cli/cmd"
 )
 
 func main() {

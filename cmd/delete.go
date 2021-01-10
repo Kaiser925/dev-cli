@@ -16,7 +16,7 @@
 package cmd
 
 import (
-	"github.com/Kaiser925/devctl/pkg/resourses"
+	"github.com/Kaiser925/dev-cli/pkg/resourses"
 	"github.com/spf13/cobra"
 )
 

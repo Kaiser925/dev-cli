@@ -18,7 +18,7 @@ package resourses
 import (
 	"bytes"
 	"fmt"
-	"github.com/Kaiser925/devctl/pkg/common"
+	"github.com/Kaiser925/dev-cli/pkg/common"
 	"log"
 	"os"
 	"os/exec"

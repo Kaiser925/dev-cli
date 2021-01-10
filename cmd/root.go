@@ -17,7 +17,7 @@ package cmd
 
 import (
 	"errors"
-	"github.com/Kaiser925/devctl/pkg/common"
+	"github.com/Kaiser925/dev-cli/pkg/common"
 	"github.com/spf13/cobra"
 	"log"
 )
@@ -29,8 +29,8 @@ func Execute() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:  "devctl [command]",
-	Long: "devctl build env for local test",
+	Use:  "dev-cli [command]",
+	Long: "dev-cli build env for local test",
 }
 
 var resourceCfg string
