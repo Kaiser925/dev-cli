@@ -16,6 +16,8 @@
 package common
 
 import (
+	"errors"
+	"fmt"
 	"gopkg.in/yaml.v2"
 	"io"
 	"os"
@@ -31,8 +33,23 @@ type ResourceConfig struct {
 	Password     string `yaml:"password"`
 }
 
-func NewResourceConfig() *ResourceConfig {
-	return new(ResourceConfig)
+func NewResourceConfig(kind string, file string) (*ResourceConfig, error) {
+	if len(file) == 0 {
+		config := DefaultResourceConfig()
+		config.Kind = kind
+		return config, nil
+	}
+
+	config, err := ReadConfigFromFile(file)
+	if err != nil {
+		return nil, err
+	}
+
+	if config.Kind != kind {
+		return nil, errors.New(fmt.Sprintf("kind conflict: '%s' and '%s' in file", kind, config.Kind))
+	}
+
+	return config, nil
 }
 
 func ReadConfigFromFile(name string) (*ResourceConfig, error) {
@@ -52,12 +69,11 @@ func ReadConfig(reader io.Reader) (*ResourceConfig, error) {
 	return config, nil
 }
 
-func DefaultMongoReplicaSetConfig() *ResourceConfig {
+func DefaultResourceConfig() *ResourceConfig {
 	host, _ := GetLocalIP()
 	return &ResourceConfig{
-		Kind:     "MongoReplicaSet",
 		Host:     host,
-		DataDir:  "/mnt/data/mongo",
+		DataDir:  "./data/mongo",
 		SetupDir: "./.dev-cli-setup",
 	}
 }

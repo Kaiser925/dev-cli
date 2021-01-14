@@ -53,10 +53,21 @@ func TestReadConfigFromFile(t *testing.T) {
 	assert.Equal(t, config.SetupDir, "./setup")
 }
 
-func TestDefaultMongoReplicaSetConfig(t *testing.T) {
-	config := DefaultMongoReplicaSetConfig()
+func TestDefaultResourceConfig(t *testing.T) {
+	config := DefaultResourceConfig()
 
-	assert.Equal(t, config.Kind, "MongoReplicaSet")
-	assert.Equal(t, config.DataDir, "/mnt/data/mongo")
+	assert.Equal(t, config.Kind, "")
+	assert.Equal(t, config.DataDir, "./data/mongo")
 	assert.Equal(t, config.SetupDir, "./.dev-cli-setup")
+}
+
+func TestNewResourceConfig(t *testing.T) {
+	config, err := NewResourceConfig("TestKind", "")
+	assert.Equal(t, err, nil)
+	assert.Equal(t, config.Kind, "TestKind")
+}
+
+func TestConflictNewConfig(t *testing.T) {
+	_, err := NewResourceConfig("TestKind", "tmp-config.yaml")
+	assert.Equal(t, err.Error(), "kind conflict: 'TestKind' and 'test' in file")
 }

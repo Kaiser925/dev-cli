@@ -16,6 +16,7 @@
 package cmd
 
 import (
+	"github.com/Kaiser925/dev-cli/pkg/common"
 	"github.com/Kaiser925/dev-cli/pkg/resourses"
 	"github.com/spf13/cobra"
 )
@@ -24,8 +25,9 @@ var createCmd = &cobra.Command{
 	Use:   "create [resource kind]",
 	Short: "create local resource",
 	Long:  "create local resource, such as local mongo replica set.",
+	Args:  cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		config, err := parseConfig(resourceCfg, args)
+		config, err := common.NewResourceConfig(args[0], filename)
 		if err != nil {
 			return err
 		}
@@ -36,6 +38,6 @@ var createCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(createCmd)
 
-	createCmd.Flags().StringVarP(&resourceCfg, "filename", "f", "",
+	createCmd.Flags().StringVarP(&filename, "filename", "f", "",
 		"that contains the configuration to createCmd")
 }

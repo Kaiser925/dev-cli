@@ -16,11 +16,11 @@
 package cmd
 
 import (
-	"errors"
-	"github.com/Kaiser925/dev-cli/pkg/common"
 	"github.com/spf13/cobra"
 	"log"
 )
+
+var filename string
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
@@ -31,29 +31,4 @@ func Execute() {
 var rootCmd = &cobra.Command{
 	Use:  "dev-cli [command]",
 	Long: "dev-cli build env for local test",
-}
-
-var resourceCfg string
-
-func parseConfig(resourceCfg string, args []string) (*common.ResourceConfig, error) {
-	if len(resourceCfg) == 0 && len(args) == 0 {
-		return nil, errors.New("missing input resource kind")
-	}
-
-	// Use config from file
-	if len(resourceCfg) > 0 {
-		return common.ReadConfigFromFile(resourceCfg)
-	}
-
-	// Use default config
-	return loadDefaultConfig(args)
-}
-
-func loadDefaultConfig(args []string) (*common.ResourceConfig, error) {
-	switch args[0] {
-	case "mongors":
-		return common.DefaultMongoReplicaSetConfig(), nil
-	default:
-		return nil, errors.New("kind is not found")
-	}
 }

@@ -16,6 +16,7 @@
 package cmd
 
 import (
+	"github.com/Kaiser925/dev-cli/pkg/common"
 	"github.com/Kaiser925/dev-cli/pkg/resourses"
 	"github.com/spf13/cobra"
 )
@@ -24,8 +25,9 @@ var deleteCmd = &cobra.Command{
 	Use:   "delete [resource kind]",
 	Short: "Delete local resource",
 	Long:  "Delete local resource, such as local mongo replica set.",
+	Args:  cobra.MinimumNArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		config, err := parseConfig(resourceCfg, args)
+		config, err := common.NewResourceConfig(args[0], filename)
 		if err != nil {
 			return err
 		}
@@ -35,6 +37,6 @@ var deleteCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(deleteCmd)
-	deleteCmd.Flags().StringVarP(&resourceCfg, "filename", "f", "",
+	deleteCmd.Flags().StringVarP(&filename, "filename", "f", "",
 		"that contains the configuration to createCmd")
 }
