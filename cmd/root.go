@@ -37,23 +37,23 @@ var resourceCfg string
 
 func parseConfig(resourceCfg string, args []string) (*common.ResourceConfig, error) {
 	if len(resourceCfg) == 0 && len(args) == 0 {
-		return nil, errors.New("missing config")
+		return nil, errors.New("missing input resource kind")
 	}
 
+	// Use config from file
 	if len(resourceCfg) > 0 {
 		return common.ReadConfigFromFile(resourceCfg)
-	} else {
-		return parseConfigFromArgs(args)
 	}
+
+	// Use default config
+	return loadDefaultConfig(args)
 }
 
-func parseConfigFromArgs(args []string) (*common.ResourceConfig, error) {
-	config := common.NewResourceConfig()
-	switch len(args) {
-	case 1:
-		config.Kind = args[0]
+func loadDefaultConfig(args []string) (*common.ResourceConfig, error) {
+	switch args[0] {
+	case "mongors":
+		return common.DefaultMongoReplicaSetConfig(), nil
 	default:
-		return config, errors.New("parameters is not right")
+		return nil, errors.New("kind is not found")
 	}
-	return config, nil
 }

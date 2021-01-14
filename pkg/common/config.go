@@ -61,14 +61,3 @@ func DefaultMongoReplicaSetConfig() *ResourceConfig {
 		SetupDir: "./.dev-cli-setup",
 	}
 }
-
-func DefaultMongoDBConfig() *ResourceConfig {
-	host, _ := GetLocalIP()
-	return &ResourceConfig{
-		Kind:         "MongoDB",
-		Host:         host,
-		DatabaseName: "MongoDB",
-		User:         "admin",
-		Password:     "admin",
-	}
-}
